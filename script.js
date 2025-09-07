@@ -14,8 +14,12 @@ const loadCategory = () => {
       console.log(err);
     });
 };
-// 20=+
+
 const showCategory = (categories) => {
+  categoryContainer.innerHTML = `
+    <li id="all" class="hover:bg-[#15803d] hover:text-white p-1 font-semibold cursor-pointer">All Trees</li>
+  `;
+
   categories.forEach((catG) => {
     categoryContainer.innerHTML += ` 
         <li id="${catG.id}" class="hover:bg-[#15803d]
@@ -23,8 +27,9 @@ const showCategory = (categories) => {
         
         `;
   });
+
   categoryContainer.addEventListener("click", (e) => {
-    const allLi = document.querySelectorAll("li");
+    const allLi = document.querySelectorAll("#categoryContainer li");
     allLi.forEach((li) => {
       li.classList.remove("bg-[#15803d]", "text-white", "rounded-sm");
       li.addEventListener("click", () => {
@@ -36,9 +41,24 @@ const showCategory = (categories) => {
       console.log(e.target.id);
       // console.log(e.target.localName);
       e.target.classList.add("bg-[#15803d]", "text-white", "rounded-sm");
-      loadNewsByCategory(e.target.id);
+
+      if (e.target.id === "all") {
+        loadAllTrees();
+      } else {
+        loadNewsByCategory(e.target.id);
+      }
     }
   });
+};
+
+const loadAllTrees = () => {
+  fetch("https://openapi.programming-hero.com/api/plants")
+    .then((res) => res.json())
+    .then((data) => {
+      newsContainer.innerHTML = "";
+      showNewsByCategory(data.plants);
+    })
+    .catch((err) => console.log(err));
 };
 
 const loadNewsByCategory = (categoryId) => {
@@ -56,15 +76,28 @@ const loadNewsByCategory = (categoryId) => {
 };
 
 const showNewsByCategory = (plants) => {
+  newsContainer.innerHTML = "";
   console.log(plants);
   plants.forEach((plant) => {
     newsContainer.innerHTML += `
-    <div>
-    <img src="${plant.image}" >
-        <h1>
-        ${plant.name}
-         </h1>
-    </div>
+    <div class="bg-white p-2 rounded-lg my-3">
+              <img class="w-full max-h-[300px] mb-2 rounded-lg" src="${plant.image}" />
+              <h1 class="text-lg font-semibold">${plant.name}</h1>
+              <p>
+               ${plant.description}
+              </p>
+              <div class="flex justify-between items-center">
+                <button class="bg-[#DCFCE7] text-[#15803D] my-3 rounded-4xl btn">
+                  ${plant.category}
+                </button>
+                <h3 class="text-lg font-semibold"><span class="text-lg font-semibold">৳<span> ${plant.price}</h3>
+              </div>
+              <button
+                class="primary-color text-white w-full my-3 rounded-4xl btn"
+              >
+                Add to Cart
+              </button>
+            </div>
     `;
   });
 };
