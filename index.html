@@ -58,29 +58,35 @@
       </div>
     </section>
     <!-- main -->
-    <h1 class="text-3xl font-bold items-center mx-auto text-center my-7">
-      Choose Your Trees
-    </h1>
-    <section class="max-w-[90%] mx-auto p-5 border-2 border-red-500">
-      <div class="grid grid-cols-1 sm:grid-cols-5 gap-5">
-        <div class="col-span-1 border-2 border-green-500">
-          <h1 class="font-semibold">Categories</h1>
-          <h2 class="hover:bg-[#15803d]">All Trees</h2>
-          <ul id="categoryContainer"></ul>
-        </div>
-        <div
-          class="grid grid-cols-1 sm:grid-cols-3 col-span-3 justify-between border-2 border-blue-500"
-        >
-          <h1>hello hello hello</h1>
-          <h1>hello hello hello</h1>
-          <h1>hello hello hello</h1>
-        </div>
-        <div class="col-span-1 border-2 border-amber-300">
-          <h1>hello</h1>
-        </div>
-      </div>
-    </section>
+    <main class="bg-[#F0FDF4]">
+      <h1 class="text-3xl font-bold items-center mx-auto text-center py-7">
+        Choose Your Trees
+      </h1>
+      <section class="max-w-[90%] mx-auto p-5 border-2 border-red-500">
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-5">
+          <div class="col-span-1 border-2 border-green-500">
+            <h1 class="font-bold p-1">Categories</h1>
 
+            <ul id="categoryContainer">
+              <li class="hover:bg-[#15803d] hover:text-white p-1 font-semibold">
+                All Trees
+              </li>
+            </ul>
+          </div>
+          <div
+            id="newsContainer"
+            class="bg-white grid grid-cols-1 sm:grid-cols-3 col-span-3 justify-between border-2 border-blue-500"
+          >
+            <!-- <h1>hello hello hello</h1>
+            <h1>hello hello hello</h1>
+            <h1>hello hello hello</h1> -->
+          </div>
+          <div class="col-span-1 bg-white border-2 border-amber-300">
+            <h1>hello</h1>
+          </div>
+        </div>
+      </section>
+    </main>
     <!-- ----------------------- -->
     <script src="./script.js"></script>
   </body>
