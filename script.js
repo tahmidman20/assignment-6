@@ -81,7 +81,7 @@ const showNewsByCategory = (plants) => {
   plants.forEach((plant) => {
     newsContainer.innerHTML += `
     <div class="bg-white p-2 rounded-lg my-3">
-              <img class="w-full max-h-[300px] mb-2 rounded-lg" src="${plant.image}" />
+              <img class="w-full h-48 md:h-56  object-cover rounded-lg" src="${plant.image}" />
               <h1 class="text-lg font-semibold">${plant.name}</h1>
               <p>
                ${plant.description}
@@ -103,3 +103,4 @@ const showNewsByCategory = (plants) => {
 };
 
 loadCategory();
+loadAllTrees("plants");
