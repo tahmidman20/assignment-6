@@ -62,7 +62,7 @@
       <h1 class="text-3xl font-bold items-center mx-auto text-center py-7">
         Choose Your Trees
       </h1>
-      <section class="max-w-[90%] mx-auto p-5 border-2 border-red-500">
+      <section class="max-w-[90%] mx-auto p-5">
         <div class="grid grid-cols-1 sm:grid-cols-5 gap-5">
           <div class="col-span-1">
             <h1 class="font-bold p-1">Categories</h1>
@@ -77,10 +77,15 @@
             id="newsContainer"
             class="grid grid-cols-1 space-x-5 sm:grid-cols-3 col-span-3 justify-between"
           ></div>
-          <div
-            class="col-span-1 bg-white p-1 rounded-lg border-2 border-amber-300"
-          >
-            <h1 class="text-lg font-semibold">Your Cart</h1>
+          <div class="col-span-1 bg-white p-1 rounded-lg mt-2">
+            <h1 class="text-lg font-semibold pl-4">Your Cart</h1>
+            <div id="addCardContainer" class="border-b-2 border-gray-200"></div>
+            <div class="flex justify-between px-4">
+              <h2 class="text-xl font-semibold">Total</h2>
+              <p class="text-xl font-semibold">
+                ৳ <span id="totalAmount" class="text-xl font-semibold">0</span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
