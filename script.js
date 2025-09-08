@@ -35,6 +35,8 @@ const showCategory = (categories) => {
   });
 
   categoryContainer.addEventListener("click", (e) => {
+    if (e.target.localName !== "li") return;
+
     const allLi = document.querySelectorAll("#categoryContainer li");
     allLi.forEach((li) => {
       li.classList.remove("bg-[#15803d]", "text-white", "rounded-sm");
@@ -44,6 +46,7 @@ const showCategory = (categories) => {
     });
 
     if (e.target.localName === "li") {
+      showLoading();
       e.target.classList.add("bg-[#15803d]", "text-white", "rounded-sm");
 
       if (e.target.id === "all") {
@@ -71,7 +74,6 @@ const loadNewsByCategory = (categoryId) => {
     .then((res) => res.json())
     .then((data) => {
       // console.log(data.plants);
-
       showNewsByCategory(data.plants);
     })
     .catch((err) => {
@@ -86,8 +88,8 @@ const showNewsByCategory = (plants) => {
     newsContainer.innerHTML += `
     <div id="${plant.id}" class="bg-white p-2 rounded-lg my-3">
               <img class="w-full h-48 md:h-56  object-cover rounded-lg" src="${plant.image}" />
-              <h1 class="text-lg font-semibold">${plant.name}</h1>
-              <p>
+              <h1 class="plant-title text-lg font-semibold cursor-pointer"data-id="${plant.id}">${plant.name}</h1>
+              <p class="line-clamp-2">
                ${plant.description}
               </p>
               <div class="flex justify-between items-center">
@@ -108,6 +110,27 @@ const showNewsByCategory = (plants) => {
     `;
   });
 };
+
+newsContainer.addEventListener("click", (e) => {
+  const titleEl = e.target.closest(".plant-title");
+  if (!titleEl) return;
+  const plantId = titleEl.dataset.id;
+  fetch(`https://openapi.programming-hero.com/api/plant/${plantId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      const plant = data.plants;
+      document.getElementById("modalContent").innerHTML = `
+        <img src="${plant.image}" class="w-full h-56 object-cover rounded-lg" />
+        <h2 class="text-2xl font-bold">${plant.name}</h2>
+        <p class="text-sm text-gray-600">Category: <span class="font-semibold">${plant.category}</span></p>
+        <p>description : ${plant.description}</p>
+        <p class="text-lg font-semibold ">price ৳ : ${plant.price}</p>
+      `;
+      document.getElementById("plantModal").checked = true;
+    })
+    .catch((err) => console.log(err));
+});
 
 newsContainer.addEventListener("click", (e) => {
   const btn = e.target.closest("button[data-id]");
@@ -155,5 +178,12 @@ window.deleteToCard = (cardId) => {
   showAddToCard();
 };
 
+const showLoading = () => {
+  newsContainer.innerHTML = `
+  
+  <div class="p-3 col-span-3 items-center text-center"><span class="loading loading-spinner loading-xl"></span></div>`;
+};
+
+showLoading();
 loadCategory();
 loadAllTrees("plants");
