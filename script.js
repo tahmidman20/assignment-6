@@ -118,6 +118,8 @@ newsContainer.addEventListener("click", (e) => {
   const price = Number(e.target.dataset.price);
   if (Number.isNaN(id) || Number.isNaN(price)) return;
 
+  alert(`${title} has been added to the Cart`);
+
   const existingItem = addToCards.find((item) => item.id === id);
   if (existingItem) {
     existingItem.quantity += 1;
